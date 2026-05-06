@@ -1,0 +1,54 @@
+name: rabitmateapp
+services:
+  rabimateapp:
+    build: .
+      #context: rabimateapp
+      #dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      #- ConnectionString__DefaultConnection=""
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    networks:
+      - rabimatenetwork
+    restart: on-failure
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver-1
+    mem_limit: 4g
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Rabimate1@
+      - MSSQL_SA_PASSWORD=Rabimate1@
+    ports:
+      - "1433:1433"
+    volumes:
+      #- sqlvolume:/var/opt/mssql/data
+      - ./backups:/var/opt/mssql/backups
+      - ./data:/var/opt/mssql/data
+    networks:
+      - rabimatenetwork
+    healthcheck:
+      #test: ["CMD", "bash", "-c", "</dev/tcp/localhost/1433"]
+      test: [
+        "CMD",
+        "/opt/mssql-tools18/bin/sqlcmd",
+        "-S", "localhost",
+        "-U", "sa",
+        "-P", "Rabimate1@",
+        "-Q", "SELECT 1",
+        "-C"
+      ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 40s
+networks:
+  rabimatenetwork:
+volumes:
+  sqlvolume:
