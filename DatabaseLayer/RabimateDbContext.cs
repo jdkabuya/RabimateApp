@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatabaseLayer
 {
-    public class RabimateDbContext(RabimateDbContext options) : IdentityDbContext<User>(options)
+    public class RabimateDbContext(DbContextOptions options) : IdentityDbContext<User>(options)
     {
         public DbSet<Cage> Cages { get; set; }
         public DbSet<Breed> Breeds { get; set; }
