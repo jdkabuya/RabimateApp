@@ -1,73 +1,23 @@
 import { Box, Button, Paper, Typography } from "@mui/material";
-//import { useRef } from "react";
-// import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useForm } from 'react-hook-form';
-//import axios from "axios";
-//import { useQuery } from "@tanstack/react-query"
-//import { useUsers } from "../../../lib/hooks/useUsers";
 import { zodResolver } from '@hookform/resolvers/zod';
 import TextInput from "../../shared/Components/TextInput";
-//import { type UserSchema, userSchema } from "../../../lib/schemas/userSchema";
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { useAccount } from "../../../lib/hooks/useAccount";
 import { type LoginSchema, loginSchema } from "../../../lib/schemas/loginSchema";
-//import { useQuery } from "@tanstack/react-query";
-//import agent from "../../../api/agent";
-//import { useUsers } from "../../../lib/hooks/useUsers";
-//import agent from "../../../api/agent";
-
 
 export default function Login() {
-    //const inputUser = useRef<HTMLInputElement>(null);
-    // const { control, reset, handleSubmit } = useForm<UserSchema>({
-    //     mode: 'onTouched',
-    //     resolver: zodResolver(userSchema)
-    // })
-    //--------
     const { loginUser } = useAccount();
     const { control, handleSubmit, formState: { isValid, isSubmitting } } = useForm<LoginSchema>({
         mode: 'onTouched',
+        defaultValues: { email: '', password: '' },
         resolver: zodResolver(loginSchema)
     });
-    //--------
-    //const [loggedUser, setLoggedUser] = useState<User>();
-    // const [users, setUser] = useState<User[]>([]);
-    // const [userName, setUserName] = useState<string>('');
-    // const [password, setpassword] = useState<string>('');
-    // const [openDialog, setOpenDialog] = React.useState(false);
-    //const [closeForm, setCloseForm] = useState(true);
-    //const { users, isPending } = useUsers();
-
-    // const { data: users, isPending, error, isError, status } = useQuery({
-    //     queryKey: ['users'],
-    //     queryFn: async () => {
-    //         console.log('Feching users ...');
-    //         const response = await axios.get<User[]>('/users');
-    //         const data = agent.get<User[]>('/users');
-    //         console.log('users fetched:', data);
-    //         return response.data;
-    //     }
-    // });
-    // console.log({ users, isPending, error, isError, status })
-    // useEffect(() => {
-    //     axios.get('https://localhost:7192/api/users')
-    //         .then(response => setUser(response.data))
-
-    //     if (inputUser.current) {
-    //         inputUser.current.focus();
-    //     }
-
-    // }, [users, reset]);//
-
-    // const handleUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     //setUserName(e.target.value)
-    // };
-    // const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     //setpassword(e.target.value)
-    // }
     const onSubmit = async (data: LoginSchema) => {
         await loginUser.mutateAsync(data);
+        console.log(data);
     }
+
 
     // const handleLogin = async () => {
     //     //setLoggedUser(users)

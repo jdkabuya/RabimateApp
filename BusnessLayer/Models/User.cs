@@ -18,7 +18,5 @@ namespace BusnessLayer.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
         public DateTime DateAdded { get; set; }
-
-        public string DisplayName { get; set; }
     }
 }

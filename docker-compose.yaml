@@ -35,15 +35,7 @@ services:
       - rabimatenetwork
     healthcheck:
       #test: ["CMD", "bash", "-c", "</dev/tcp/localhost/1433"]
-      test: [
-        "CMD",
-        "/opt/mssql-tools18/bin/sqlcmd",
-        "-S", "localhost",
-        "-U", "sa",
-        "-P", "Rabimate1@",
-        "-Q", "SELECT 1",
-        "-C"
-      ]
+      test: [ "CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "Rabimate1@", "-Q", "SELECT 1", "-C" ]
       interval: 10s
       timeout: 5s
       retries: 10

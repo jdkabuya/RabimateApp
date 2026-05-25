@@ -7,7 +7,7 @@ const sleep = (delay: number) => {
 }
 
 const agent = axios.create({
-    baseURL: import.meta.env.VITE_API_URL,
+    baseURL: "https://localhost:7192/api", //baseURL: import.meta.env.VITE_API_URL,
     withCredentials: true
 });
 

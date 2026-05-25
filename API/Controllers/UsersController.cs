@@ -1,5 +1,6 @@
 ﻿using BusnessLayer.Models;
 using DatabaseLayer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,7 @@ namespace API.Controllers
         /// Get all the users
         /// </summary>
         /// <returns></returns>
+        //[AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<List<User>>> GetUsers()
         {
@@ -24,6 +26,7 @@ namespace API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        //[AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(string id)
         {
@@ -33,14 +36,14 @@ namespace API.Controllers
             return user;
         }
 
-
+        //[AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult> CreateUser(User user )
         {
             await context.Users.AddAsync(user);
             return Ok();
         }
-
+        //[AllowAnonymous]
         [HttpPut]
         public async Task<ActionResult> UpdateUser(User user)
         {

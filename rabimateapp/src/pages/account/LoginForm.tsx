@@ -20,34 +20,52 @@ export default function LoginForm() {
     }
 
     return (
-        <Paper
-            component='form'
-            onSubmit={handleSubmit(onSubmit)}
+        <Box
             sx={{
+                minHeight: '100vh',
                 display: 'flex',
-                flexDirection: 'column',
-                p: 3,
-                gap: 3,
-                maxWidth: 'md',
-                mx: 'auto',
-                borderRadius: 3
+                alignItems: 'center',
+                justifyContent: 'center',
+                px: 2,
+                py: 4,
+                backgroundImage: 'url(/images/rabbit3.jfif)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
             }}
         >
-            <Box display='flex' alignItems='center' justifyContent='center'
-                gap={3} color='secondary.main'>
-                <LockOpenIcon fontSize="large" />
-                <Typography variant="h4"> Sign in </Typography>
-            </Box>
-            <TextInput label='Email' control={control} name='email' />
-            <TextInput label='Password' type="password" control={control} name='password' />
-            <Button
-                type='submit'
-                disabled={!isValid || isSubmitting}
-                variant="contained"
-                size="large"
+            <Paper
+                component='form'
+                onSubmit={handleSubmit(onSubmit)}
+                elevation={8}
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    p: 4,
+                    gap: 3,
+                    width: '100%',
+                    maxWidth: 420,
+                    borderRadius: 3,
+                    backgroundColor: 'rgba(255, 255, 255, 0.88)',
+                    boxShadow: (theme) => theme.shadows[12]
+                }}
             >
-                Login
-            </Button>
-        </Paper >
+                <Box display='flex' alignItems='center' justifyContent='center'
+                    gap={2} color='secondary.main'>
+                    <LockOpenIcon fontSize="large" />
+                    <Typography variant="h4"> Sign in </Typography>
+                </Box>
+                <TextInput label='Email' control={control} name='email' />
+                <TextInput label='Password' type="password" control={control} name='password' />
+                <Button
+                    type='submit'
+                    disabled={!isValid || isSubmitting}
+                    variant="contained"
+                    size="large"
+                >
+                    Login
+                </Button>
+            </Paper>
+        </Box>
     )
 }

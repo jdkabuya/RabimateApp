@@ -3,6 +3,7 @@ using BusnessLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -15,8 +16,7 @@ namespace API.Controllers
             var user = new User
             {
                 UserName = registerDto.Email,
-                Password = registerDto.Password,
-                DisplayName = registerDto.DisplayName
+                Password = registerDto.Password
             };
 
             var result = await signInManager.UserManager.CreateAsync(user, registerDto.Password);
@@ -30,21 +30,20 @@ namespace API.Controllers
             return ValidationProblem();
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpGet("user-info")]
         public async Task<ActionResult> GetUserInfo()
         {
-            if (User.Identity?.IsAuthenticated == false) return NoContent();
-            var user = await signInManager.UserManager.GetUserAsync(User);
-
-            if (user == null) return Unauthorized();
-
-            return Ok(new
+            if (!User.Identity?.IsAuthenticated ?? true)
             {
-                user.DisplayName,
-                user.Email, 
-                user.Id
-            });
+                return Unauthorized(); // or return BadRequest("Authentication required")
+            }
+
+            var user = await signInManager.UserManager.GetUserAsync(User);
+            
+            if (user == null) return NotFound(); // User claims exist but no matching user in DB
+            
+            return Ok(new { user.UserName, user.Email, user.Id });
         }
 
         [HttpPost("logout")]
@@ -52,6 +51,13 @@ namespace API.Controllers
         {
             await signInManager.SignOutAsync();
             return NoContent();
+        }
+
+        [HttpGet("pingauth")]
+        public async Task <ActionResult> PinGauth(ClaimsPrincipal user)
+        {
+            var email = user.FindFirstValue(ClaimTypes.Email);
+            return Ok(); 
         }
 
     }

@@ -61,16 +61,16 @@ type History = {
 }
 
 //rabbit type
-// type Rabbit = {
-//     Id: string
-//     code: string
-//     cageid: string
-//     genderid: string
-//     dob: Date
-//     imported: boolean
-//     generationid: string
-//     dateadded: Date
-//     dateupdated: Date
-//     addedby: string
-//     updatedby: string
-// }
+type Rabbit = {
+    Id: string
+    code: string
+    cageid: string
+    genderid: string
+    dob: Date
+    imported: boolean
+    generationid: string
+    dateadded: Date
+    dateupdated: Date
+    addedby: string
+    updatedby: string
+}
