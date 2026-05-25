@@ -7,10 +7,9 @@ export const useUsers = () => {
     const { data: users, isPending } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            console.log('Feching users ...');
-            //const response = await agent.get<User[]>('/users');
+            //console.log('Feching users ...');
             const data = await agent.get<User[]>('/users');
-            console.log('users fetched:', data);
+            //console.log('users fetched:', data);
             return data;
         }
     });
@@ -30,5 +29,4 @@ export const useUsers = () => {
         isPending,
         updateUser
     }
-
 }

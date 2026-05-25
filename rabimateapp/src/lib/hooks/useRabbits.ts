@@ -28,5 +28,4 @@ export const useRabbits = () => {
         isPending,
         updateRabbit
     }
-
 }
