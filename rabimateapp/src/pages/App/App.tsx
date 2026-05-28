@@ -2,6 +2,7 @@
 import { CssBaseline } from '@mui/material'
 import './App.css'
 // import Home from '../home/Home'
+//import RabbitDashboard from '../Rabbits/RabbitDashboard'
 import Login from '../login/components/Login'
 // import LoginForm from '../account/LoginForm'
 //import RabbitList from '../Rabbits/RabbitList'
@@ -16,6 +17,7 @@ function App() {
       <Login />
       {/* <Home /> */}
       {/* <LoginForm /> */}
+      {/* <RabbitDashboard /> */}
     </>
   )
 }

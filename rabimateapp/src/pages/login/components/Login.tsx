@@ -1,12 +1,12 @@
-import { Box, Button, Paper, Typography } from "@mui/material";
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import TextInput from "../../shared/Components/TextInput";
-import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { useAccount } from "../../../lib/hooks/useAccount";
 import { type LoginSchema, loginSchema } from "../../../lib/schemas/loginSchema";
-
+import { Box, Button, Checkbox, FormControlLabel, Link, Typography } from "@mui/material";
+//import CrueltyFreeIcon from '@mui/icons-material/CrueltyFree';
 export default function Login() {
+    //const theme = useTheme();
     const { loginUser } = useAccount();
     const { control, handleSubmit, formState: { isValid, isSubmitting } } = useForm<LoginSchema>({
         mode: 'onTouched',
@@ -18,104 +18,99 @@ export default function Login() {
         console.log(data);
     }
 
-
-    // const handleLogin = async () => {
-    //     //setLoggedUser(users)
-
-    //     console.log(users);
-    //     const loggedUser = users.find(x => x.email.toLowerCase() == userName.toLowerCase() && x.password.toLowerCase() == password.toLowerCase())
-
-    //     console.log(loggedUser);
-
-    //     if (loggedUser === undefined) {
-
-    //         // setOpenDialog(true)
-    //     }
-    //     else {
-    //         // setOpenDialog(false)
-    //     }
-    // }
-    // const onSubmit = (data: UserSchema) => {
-    //     console.log(data);
-    // }
     return (
-        <>
-            {/* <Navbar /> */}
-            {/* {isPending ? (
-                <Typography>Loading...</Typography>
-            ) : ""} */}
+        <Box sx={{ display: 'flex', height: '100vh', width: '100vw', bgcolor: 'background.default' }}>
 
-            <Paper
-                component='form'
-                onSubmit={handleSubmit(onSubmit)}
+            {/* Visual Left Pane (Rabbit Image) */}
+            <Box
+                sx={{
+                    flex: 1,
+                    display: { xs: 'none', md: 'block' },
+                    backgroundImage: `url('/images/rabbit-image1.jfif')`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    width: '100%',
+                    height: '100%',
+                    border: 'none',
+                    margin: 0,
+                    padding: 0,
+                }}
+            />
+
+            {/* Form Right Pane */}
+            <Box
+                sx={{
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    // alignItems: 'center',
+                    px: { xs: 4, sm: 8, md: 12 },
+                    bgcolor: 'background.paper',
+                }}
             >
-                {/* <form onSubmit={handleSubmit(onSubmit)}> */}
-
-                <Box display="flex" flexDirection={"row"}
-                    maxWidth={600}
-                    justifyContent={"center"}
-                    padding={5}
-                    bgcolor={"#d2c9bb"}
-                    margin="auto"
-                    boxShadow={"5px 5px 10px #926841"}
-                    borderRadius={2}
-                >
-                    <Box display="flex"
-                        flexDirection={"column"}
-                        maxWidth={300}
-                        alignContent={"center"}
-                        justifyContent={"center"}
-                        padding={3}
-                        boxShadow={"5px 5px 10px #ccc"}
-                        bgcolor={"#fff"}
-                        sx={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10 }}
-                    >
-                        <Box display='flex' alignItems='center'
-                            justifyContent='center'
-                            gap={0.5}
-                            color='#926841'
-                        >
-                            <LockOpenIcon fontSize="small" />
-                            <Typography variant="h6" align="center" >
-                                Login
-                            </Typography>
-                        </Box>
-                        <TextInput id="txtusername"
-                            label='Email'
-                            control={control}
-                            name="email"
-                            size='small'
-                            sx={{ mb: 1 }} autoComplete="off" />
-                        <TextInput id="txtpassword" label='Password'
-                            control={control}
-                            name="password"
-                            size='small' type="password" sx={{ mb: 1 }} autoComplete="off" />
-                        <Button type="submit"
-                            disabled={!isValid || isSubmitting}
-                            variant="contained"
-                            //onClick={handleLogin}
-                            sx={{ backgroundColor: "#926841" }}
-                        >
-                            Login
-                        </Button>
-
-                        <Button variant="text" sx={{ '&:focus': { outline: 'none' }, marginTop: 1, textTransform: "none" }}>Forgot password</Button>
+                {/* <Box sx={{ mb: 4 }}>
+                    <Box display='flex' alignItems='center' justifyContent='center' gap={0.1} color='#070400'>
+                        <CrueltyFreeIcon />
+                        <Typography variant="h6" color='#926841' component="div" sx={{ flexGrow: 1 }}>
+                            Rabimate
+                        </Typography>
                     </Box>
-                    <Box display="flex"
-                        flexDirection={"column"}
-                        maxWidth={300}
-                        alignContent={"center"}
-                        bgcolor={"#926841"}
-                        component={"img"}
-                        src={`public/images/rabbit4.jfif`}
-                        sx={{ borderTopRightRadius: 10, borderBottomRightRadius: 10 }}
-                    >
-                    </Box>
+                </Box> */}
+                <Box display='flex' flexDirection='column' alignItems='center'>
+                    <Typography variant="h4" color="#926841" sx={{ mb: 3, fontWeight: 700 }}>
+                        Sign In
+                    </Typography>
                 </Box>
-                {/* </form> */}
-            </Paper>
-        </>
-    )
-}
 
+                <form noValidate autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+                    <TextInput
+                        id="txtusername"
+                        label="Email Address"
+                        type="email"
+                        control={control}
+                        name="email"
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        required
+                        sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'background.default' } }}
+                    />
+                    <TextInput
+                        label="Password"
+                        type="password"
+                        control={control}
+                        name="password"
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                        required
+                        sx={{ '& .MuiOutlinedInput-root': { bgcolor: 'background.default' } }}
+                    />
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', my: 2 }}>
+                        <FormControlLabel
+                            control={<Checkbox defaultChecked sx={{ color: '#926841', '&.Mui-checked': { color: '#926841' } }} />}
+                            label="Remember me"
+                        />
+                        <Link href="#" variant="body2" color="primary.main" underline="hover">
+                            Forgot Password?
+                        </Link>
+                    </Box>
+
+                    <Button
+                        type="submit"
+                        disabled={!isValid || isSubmitting}
+                        variant="contained"
+                        fullWidth
+                        size="large"
+                        sx={{ py: 1.5, mt: 2, fontWeight: 'bold', backgroundColor: '#926841', '&:hover': { backgroundColor: '#7a5032' } }}
+                    >
+                        Log In
+                    </Button>
+                </form>
+            </Box>
+        </Box>
+    );
+};
 

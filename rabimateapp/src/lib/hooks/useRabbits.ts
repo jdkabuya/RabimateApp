@@ -9,9 +9,7 @@ export const useRabbits = () => {
             const response = await agent.get<Rabbit[]>('/rabbits');
             return response.data;
         }
-
     });
-
 
     const updateRabbit = useMutation({
         mutationFn: async (rabbit: Rabbit) => {
